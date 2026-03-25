@@ -4,5 +4,7 @@ import com.ucb.app.movie.domain.model.MovieModel
 
 data class MovieUiState(
     val isLoading: Boolean = false,
-    val list: List<MovieModel> = emptyList()
+    val movies: List<MovieModel> = emptyList(),
+    val selectedMovie: MovieModel? = null,
+    val error: String? = null
 )

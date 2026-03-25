@@ -1,6 +1,6 @@
 package com.ucb.app.movie.data.service
 
-import com.ucb.app.movie.data.datasource.MovieRemoteDatasource
+import com.ucb.app.movie.data.datasource.MovieRemoteDataSource
 import com.ucb.app.movie.data.dto.MovieDto
 import com.ucb.app.movie.data.dto.MovieResponseDto
 import io.ktor.client.HttpClient
@@ -10,8 +10,8 @@ import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-class MovieService: MovieRemoteDatasource {
-    private val client = HttpClient{
+class MovieService : MovieRemoteDataSource {
+    private val client = HttpClient {
         install(ContentNegotiation) {
             json(
                 Json {
@@ -23,8 +23,11 @@ class MovieService: MovieRemoteDatasource {
         }
     }
 
-    override suspend fun getList(): List<MovieDto> {
-        val response = client.get("https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=fa3e844ce31744388e07fa47c7c5d8c3")
+    private val apiKey = "fa3e844ce31744388e07fa47c7c5d8c3"
+    private val baseUrl = "https://api.themoviedb.org/3"
+
+    override suspend fun getMovies(): List<MovieDto> {
+        val response = client.get("$baseUrl/discover/movie?sort_by=popularity.desc&api_key=$apiKey")
         try {
             val body = response.body<MovieResponseDto>()
             return body.results
