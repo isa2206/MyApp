@@ -14,7 +14,7 @@ fun AppNavHost() {
     val navController = rememberNavController()
 
 
-    NavHost(navController = navController, startDestination = NavRoute.Movies) {
+    NavHost(navController = navController, startDestination = NavRoute.Github) {
         composable<NavRoute.Profile> {
 
 
